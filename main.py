@@ -1,16 +1,13 @@
 from moderation import * #From files this project
 
 
-# Load model
 
-state_dict = torch.load('moderation_model.pth')
-model = ModerationModel(
-    embeddings_size=state_dict['embeddings_size'],
-    categories_count=state_dict['categories_count'],
-    hidden_layer_size=state_dict['hidden_layer_size']
-).to(device)
+# Instantiate the model with the architecture parameters
+model = ModerationModel(embeddings_size=384, categories_count=11, hidden_layer_size=128).to(device)
+# Load the state dict into the model
+state_dict = torch.load('moderation_model_2.pth')
 model.load_state_dict(state_dict)
-model = model
+
 
 while True:
     text=input('Text: ')
