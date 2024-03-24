@@ -15,7 +15,7 @@ criterion = nn.BCEWithLogitsLoss()
 dataset = ModerationDataset('moderation.jsonl')
 
 # Training the model
-train(model, dataset, optimizer, criterion, epochs=1)
+train(model, dataset, optimizer, criterion, epochs=5)
 
 # Correctly saving model parameters
 torch.save(model.state_dict(), 'moderation_model_2.pth')
