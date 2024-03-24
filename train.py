@@ -8,7 +8,7 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Передаем параметры в конструктор
 model = ModerationModel(embeddings_size=384, categories_count=11, hidden_layer_size=128).to(device)
 
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+optimizer = optim.Adam(model.parameters(), lr=0.0001)
 criterion = nn.BCEWithLogitsLoss()
 
 # Load dataset
