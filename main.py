@@ -10,10 +10,9 @@ model.eval()
 def predict_moderation(text):
     embeddings_for_prediction = getEmb(text)
     prediction = predict(model, embeddings_for_prediction)
-    # Предполагая, что prediction возвращает словарь с оценками и флагом обнаружения
-    category_scores = prediction.get('category_scores', {})  # Извлечение оценок категорий из словаря
-    detected = prediction.get('detected', False)  # Извлечение флага обнаружения
-    return category_scores, str(detected)  # Преобразование detected в строку для отображения
+    category_scores = prediction.get('category_scores', {}) 
+    detected = prediction.get('detected', False)
+    return category_scores, str(detected) 
 
 while True:
     text=input('Text: ')
