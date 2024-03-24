@@ -8,14 +8,6 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 # Передаем параметры в конструктор
 model = ModerationModel(embeddings_size=384, categories_count=11, hidden_layer_size=128).to(device)
 
-# Сохраняем модель и ее параметры
-model_info = {
-    'model_state_dict': model.state_dict(),
-    'embeddings_size': model.embeddings_size,
-    'categories_count': model.categories_count,
-    'hidden_layer_size': model.hidden_layer_size
-}
-
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 criterion = nn.BCEWithLogitsLoss()
 
@@ -23,7 +15,7 @@ criterion = nn.BCEWithLogitsLoss()
 dataset = ModerationDataset('moderation.jsonl')
 
 # Training the model
-train(model, dataset, optimizer, criterion, epochs=10)
+train(model, dataset, optimizer, criterion, epochs=1)
 
-# Save the model after training
-torch.save(model_info, 'moderation_model_2.pth')
+# Correctly saving model parameters
+torch.save(model.state_dict(), 'moderation_model_2.pth')
