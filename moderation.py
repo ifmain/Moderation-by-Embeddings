@@ -61,11 +61,10 @@ def train(model, dataset, optimizer, criterion, epochs=10, batch_size=16):
             optimizer.zero_grad()
             
             embeddings = torch.stack(batch['embeddings']).to(device).float()
-            # Транспонирование размерностей эмбеддингов для соответствия ожидаемому формату
-            embeddings = embeddings.transpose(0, 1)  # Меняем местами размерности с (384, 16) на (16, 384)
+            embeddings = embeddings.transpose(0, 1)
 
             scores = torch.stack([torch.tensor(score, dtype=torch.float) for score in batch['scores']]).to(device)
-            scores = scores.transpose(0, 1)  # Swap if necessary based on actual shapes
+            scores = scores.transpose(0, 1)
 
 
             outputs = model(embeddings)
@@ -98,16 +97,17 @@ def getEmb(text):
     return sentence_embeddings.tolist()[0]
 
 def predict(model, embeddings):
-    model.eval()
     with torch.no_grad():
-        embeddings = torch.stack(batch['embeddings']).to(device)
-        outputs = model(embeddings_tensor.unsqueeze(0))
+        # The embeddings are already provided as a parameter to the function, so we use them directly.
+        # Ensure the embeddings are in the correct shape and device before making predictions.
+        embeddings_tensor = torch.tensor(embeddings).to(device).unsqueeze(0)  # Adding batch dimension
+        outputs = model(embeddings_tensor)
         predicted_scores = torch.sigmoid(outputs)
-        predicted_scores = predicted_scores.squeeze(0).tolist()
+        predicted_scores = predicted_scores.squeeze(0).tolist()  # Remove batch dimension for single prediction
         category_names = ["harassment", "harassment-threatening", "hate", "hate-threatening", "self-harm", "self-harm-instructions", "self-harm-intent", "sexual", "sexual-minors", "violence", "violence-graphic"]
         
         result = {category: score for category, score in zip(category_names, predicted_scores)}
         detected = {category: score > 0.5 for category, score in zip(category_names, predicted_scores)}
-        detect_value = any(detected.values())
+        detect_value = any(value for value in detected.values())
         
         return {"category_scores": result, 'detect': detected, 'detected': detect_value}
