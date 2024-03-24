@@ -58,4 +58,4 @@ Output:
 This model covert embedings to moderaton score
 The dataset helped with normalizing the model output, but the model does not include rows from the dataset
 
-HuggingFace: ![ifmain/moderation_by_embeddings](https://huggingface.co/ifmain/moderation_by_embeddings)
+HuggingFace: [ifmain/moderation_by_embeddings](https://huggingface.co/ifmain/moderation_by_embeddings)
