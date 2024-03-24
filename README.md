@@ -58,4 +58,14 @@ Output:
 This model covert embedings to moderaton score
 The dataset helped with normalizing the model output, but the model does not include rows from the dataset
 
+## Contributing
+
+Contributions are welcome! If you have suggestions for improving this project, feel free to open an issue or a pull request.
+
+## License
+
+All code provided in this repository is released under the MIT License. Please note that third-party AI models and libraries used may be subject to their own licenses.
+
+# Links
+
 HuggingFace: [ifmain/moderation_by_embeddings](https://huggingface.co/ifmain/moderation_by_embeddings)
